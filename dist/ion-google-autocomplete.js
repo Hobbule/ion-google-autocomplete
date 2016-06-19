@@ -9,9 +9,10 @@ angular.module('ion-google-autocomplete', [])
         },
         link: function($scope, element) {
         
-            $scope.search = {};
-            $scope.search.suggestions = [];
-            $scope.search.query = '';
+            $scope.search = {
+                suggestions: [],
+                query: ''
+            };
 
             var template = [
                 '<ion-modal-view>',

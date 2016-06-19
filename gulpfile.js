@@ -11,7 +11,7 @@ gulp.task('clean', function () {
 gulp.task('compile', ['clean'], function () {
   return gulp
     .src('src/**/*.js')
-    .pipe(concat('ion-google-automplete.js'))
+    .pipe(concat('ion-google-autocomplete.js'))
     .pipe(gulp.dest('dist'));
 });
 

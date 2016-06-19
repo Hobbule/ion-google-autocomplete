@@ -1,0 +1,31 @@
+{
+  "name": "ion-google-autocomplete",
+  "description": "A configurable Ionic directive for an Google autocomplete dropdown",
+  "main": "dist/ion-google-autocomplete.js",
+  "license": "MIT",
+  "keywords": [
+    "google",
+    "google",
+    "place",
+    "AngularJS",
+    "angular",
+    "Ionic",
+    "ion",
+    "autocomplete"
+  ],
+  "homepage": "https://github.com/Hobbule/ion-google-autocomplete",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hobbule/ion-google-autocomplete"
+  },
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.3.1"
+  }
+}

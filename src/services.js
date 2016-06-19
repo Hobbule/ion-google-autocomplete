@@ -1,7 +1,9 @@
 angular.module('ion-google-autocomplete')
-.factory('googleAutocompleteService', function($q) {
+.factory('googleAutocompleteService', function ($q) {
+
   var autocompleteService = new google.maps.places.AutocompleteService();
   var detailsService = new google.maps.places.PlacesService(document.createElement("input"));
+  
   return {
     searchAddress: function(input, countryCode) {
       var dfd = $q.defer();

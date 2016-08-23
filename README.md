@@ -5,9 +5,9 @@ ion-google-autocomplete
 This is a simple directive for Ionic 1 that allows you to add an input text element that enables user to select a place from Google Places with its details in a convenient Ionic Modal
 
 # Demo
-![alt tag](https://s3.amazonaws.com/ionic-marketplace/ion-google-autocomplete/screenshot_1.png)
-![alt tag](https://s3.amazonaws.com/ionic-marketplace/ion-google-autocomplete/screenshot_2.png)
-![alt tag](https://s3.amazonaws.com/ionic-marketplace/ion-google-autocomplete/screenshot_3.png)
+![alt tag](https://s3.amazonaws.com/ionic-marketplace/ion-google-autocomplete/screenshot_1.png=250x)
+![alt tag](https://s3.amazonaws.com/ionic-marketplace/ion-google-autocomplete/screenshot_2.png=250x)
+![alt tag](https://s3.amazonaws.com/ionic-marketplace/ion-google-autocomplete/screenshot_3.png=250x)
 See the codepen here: http://codepen.io/sebrojas14/pen/QERQyj
 
 # Installation

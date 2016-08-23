@@ -16,10 +16,10 @@ You can use bower:
 `bower i ion-google-autocomplete`
 
 # Usage
-1. Include the library and Google Places in your index.html:
+1. Include the library and Google Places in your index.html (remember to replace <yout_api_key> by yout Google API Key:
 ```html
 <script src="lib/ion-google-autocomplete/dist/ion-google-autocomplete.js"></script>
-<script src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=<yout_api_key>libraries=places"></script>
 ```
 3. In your controller initialize data and options
 ```javascript

@@ -13,6 +13,9 @@
     "ion",
     "autocomplete"
   ],
+  "authors": [
+    "Sebastián Rojas <sebastian@hobbule.com>"
+  ],
   "homepage": "https://github.com/Hobbule/ion-google-autocomplete",
   "ignore": [
     "**/.*",
@@ -23,7 +26,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Hobbule/ion-google-autocomplete"
+    "url": "https://github.com/Hobbule/ion-google-autocomplete.git"
   },
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.3.1"

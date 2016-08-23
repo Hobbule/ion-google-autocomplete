@@ -1,6 +1,6 @@
 {
   "name": "ion-google-autocomplete",
-  "version": "0.0.1",
+  "version": "0.0.6",
   "description": "A configurable Ionic directive for an Google autocomplete dropdown",
   "keywords": [
     "google",

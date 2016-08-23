@@ -2,14 +2,18 @@
 
 This is a simple directive for Ionic 1 that allows you to add an input text element that enables user to select a place from Google Places with its details in a convenient Ionic Modal
 
+# Demo
+See the codepen here: http://codepen.io/sebrojas14/pen/QERQyj
+
 # Installation
 You can use bower:
 `bower i ion-google-autocomplete`
 
 # Usage
-1. Include in your index.html file this:
+1. Include the library and Google Places in your index.html:
 ```html
 <script src="lib/ion-google-autocomplete/dist/ion-google-autocomplete.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
 ```
 3. In your controller initialize data and options
 ```javascript
@@ -27,7 +31,7 @@ $scope.onAddressSelection = function (location) {
 ```
 2. Add the google-autocomplete-suggestion attribute to your text input field
 ```html
-<input type="text" placeholder="{{'Change address'|translate}}" google-autocomplete-suggestion location="data.location" country-code="{{countryCode}}" on-selection="onAddressSelection(location)" ng-model="data.location.formatted_address" readonly required>
+<input type="text" placeholder="Change address" google-autocomplete-suggestion location="data.location" country-code="{{countryCode}}" on-selection="onAddressSelection(location)" ng-model="data.location.formatted_address" readonly required>
 ```
 
 ## Configurable options

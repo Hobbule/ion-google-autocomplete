@@ -1,4 +1,6 @@
-# ion-google-autocomplete
+ion-google-autocomplete
+================
+[![Bower version](https://badge.fury.io/bo/ion-google-autocomplete.svg)](https://badge.fury.io/bo/ion-google-autocomplete.svg)
 
 This is a simple directive for Ionic 1 that allows you to add an input text element that enables user to select a place from Google Places with its details in a convenient Ionic Modal
 

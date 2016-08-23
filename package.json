@@ -1,7 +1,7 @@
 {
   "name": "ion-google-autocomplete",
-  "version": "0.0.6",
-  "description": "A configurable Ionic directive for an Google autocomplete dropdown",
+  "version": "1.0.0",
+  "description": "The simplest way to got Google Places on your app",
   "keywords": [
     "google",
     "google place",

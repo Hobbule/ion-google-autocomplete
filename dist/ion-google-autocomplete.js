@@ -38,61 +38,55 @@ angular.module('ion-google-autocomplete', [])
                 '</ion-modal-view>'
             ].join('')            
 
-            var popupPromise = $ionicTemplateLoader.compile({
-                template: template,
+            $scope.modal = $ionicModal.fromTemplate(template, {
                 scope: $scope,
-                appendTo: $document[0].body
-            });
+                animation: 'slide-in-up'
+            })
 
-            popupPromise.then(function (el) {
-                
-                var searchInputElement = angular.element(el.element.find('input'));
+            var searchInputElement = angular.element($scope.modal.$el.find('input'));
             
-                element[0].addEventListener('focus', function(event) {
+            element[0].addEventListener('focus', function(event) {
+                
+                $scope.search.query = '';
+                $scope.open();
+            });
+                
+            $scope.open = function() {
+                
+                $scope.modal.show();
+                searchInputElement[0].focus();
+            };
+            
+            $scope.close = function() {
+                
+                $scope.modal.hide();
+            };
+            
+            $scope.choosePlace = function(place) {
+                
+                googleAutocompleteService.getDetails(place.place_id).then(function(location) {
                     
-                    $scope.search.query = '';
-                    $scope.open();
+                    $scope.location = location;
+                    $scope.close();
+                    
+                    if ($scope.onSelection !== undefined)
+                        $scope.onSelection({ location: location });
                 });
-                    
-                $scope.open = function() {
-                    
-                    el.element.css('display', 'block');
-                    searchInputElement[0].focus();
-                };
+            };
+            
+            $scope.$watch('search.query', function(newValue) {
                 
-                $scope.close = function() {
+                if (newValue) {
                     
-                    el.element.css('display', 'none');
-                };
-
-                $scope.close();
-                
-                $scope.choosePlace = function(place) {
-                    
-                    googleAutocompleteService.getDetails(place.place_id).then(function(location) {
+                    googleAutocompleteService.searchAddress(newValue, $scope.countryCode).then(function(result) {
                         
-                        $scope.location = location;
-                        $scope.close();
+                        $scope.search.error = null;
+                        $scope.search.suggestions = result;
+                    }, function(status) {
                         
-                        if ($scope.onSelection !== undefined)
-                            $scope.onSelection({ location: location });
+                        $scope.search.error = "There was an error :( " + status;
                     });
-                };
-                
-                $scope.$watch('search.query', function(newValue) {
-                    
-                    if (newValue) {
-                        
-                        googleAutocompleteService.searchAddress(newValue, $scope.countryCode).then(function(result) {
-                            
-                            $scope.search.error = null;
-                            $scope.search.suggestions = result;
-                        }, function(status) {
-                            
-                            $scope.search.error = "There was an error :( " + status;
-                        });
-                    }
-                });
+                }
             });
         }
     }

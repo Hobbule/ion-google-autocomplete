@@ -46,6 +46,10 @@ A object property where place details returned by Google are stored. For example
 Optional
 Use as componentRestrictions, see https://developers.google.com/places/web-service/autocomplete
 "components — A grouping of places to which you would like to restrict your results. Currently, you can use components to filter by country. The country must be passed as a two character, ISO 3166-1 Alpha-2 compatible country code. For example: components=country:fr would restrict your results to places within France."
+
+### `The on-selection`
+Optional
+This option receives a function called when a place is selected using the modal. Receives a paramter location with the places details returned by Google.
 ```javascript
 $scope.onAddressSelection = function (location) {
 
@@ -53,10 +57,6 @@ $scope.onAddressSelection = function (location) {
     var a = location.address_components;
 };
 ```
-
-### `The on-selection`
-Optional
-This option receives a function called when a place is selected using the modal. Receives a paramter location with the places details returned by Google.
 
 ## Release Notes
 

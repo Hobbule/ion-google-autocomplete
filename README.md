@@ -20,7 +20,7 @@ You can use bower:
 <script src="lib/ion-google-autocomplete/dist/ion-google-autocomplete.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?key=your_api_key&libraries=places"></script>
 ```
-4. Add the 'ion-google-autocomplete' module to yor app module dependencies
+2. Add the 'ion-google-autocomplete' module to yor app module dependencies
 3. In your controller initialize data and options
 ```javascript
 $scope.data = {};

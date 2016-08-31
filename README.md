@@ -16,29 +16,29 @@ You can use bower:
 
 # Usage
 1. Include the library and Google Places in your index.html (remember to replace your_api_key by your Google API Key:
-```html
-<script src="lib/ion-google-autocomplete/dist/ion-google-autocomplete.js"></script>
-<script src="http://maps.googleapis.com/maps/api/js?key=your_api_key&libraries=places"></script>
+    ```html
+    <script src="lib/ion-google-autocomplete/dist/ion-google-autocomplete.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=your_api_key&libraries=places"></script>
 ```
 2. Add the 'ion-google-autocomplete' module to yor app module dependencies
 3. In your controller initialize data and options
-```javascript
-$scope.data = {};
-
-//Optional
-$scope.countryCode = 'US';
-
-//Optional
-$scope.onAddressSelection = function (location) {
-
-    //Do something
-    var a = location.address_components;
-};
-```
+    ```javascript
+    $scope.data = {};
+    
+    //Optional
+    $scope.countryCode = 'US';
+    
+    //Optional
+    $scope.onAddressSelection = function (location) {
+    
+        //Do something
+        var a = location.address_components;
+    };
+    ```
 4. Add the google-autocomplete-suggestion attribute to your text input field
-```html
-<input type="text" placeholder="Change address" google-autocomplete-suggestion location="data.location" country-code="{{countryCode}}" on-selection="onAddressSelection(location)" ng-model="data.location.formatted_address" readonly required>
-```
+    ```html
+    <input type="text" placeholder="Change address" google-autocomplete-suggestion location="data.location" country-code="{{countryCode}}" on-selection="onAddressSelection(location)" ng-model="data.location.formatted_address" readonly required>
+    ```
 
 ## Configurable options
 

@@ -1,5 +1,9 @@
 angular.module('ion-google-autocomplete', [])
-.directive('googleAutocompleteSuggestion', function($document, $ionicModal, $ionicTemplateLoader, googleAutocompleteService) {
+.directive('googleAutocompleteSuggestion', googleAutocompleteSuggestion);
+
+googleAutocompleteSuggestion.$inject = ['$document', '$ionicModal', '$ionicTemplateLoader', 'googleAutocompleteService'];
+
+function googleAutocompleteSuggestion($document, $ionicModal, $ionicTemplateLoader, googleAutocompleteService) {
     return {
         restrict: 'A',
         scope: {
@@ -8,7 +12,7 @@ angular.module('ion-google-autocomplete', [])
             onSelection: '&'//Optional
         },
         link: function($scope, element) {
-        
+
             $scope.search = {};
             $scope.search.suggestions = [];
             $scope.search.query = '';
@@ -36,7 +40,9 @@ angular.module('ion-google-autocomplete', [])
                 '</div>',
                 '</ion-content>',
                 '</ion-modal-view>'
-            ].join('')            
+            ].join('')
+
+            console.log("In directive modal.")
 
             $scope.modal = $ionicModal.fromTemplate(template, {
                 scope: $scope,
@@ -44,50 +50,50 @@ angular.module('ion-google-autocomplete', [])
             })
 
             var searchInputElement = angular.element($scope.modal.$el.find('input'));
-            
+
             element[0].addEventListener('focus', function(event) {
-                
+                console.log("Tapped input.")
                 $scope.search.query = '';
                 $scope.open();
             });
-                
+
             $scope.open = function() {
-                
+
                 $scope.modal.show();
                 searchInputElement[0].focus();
             };
-            
+
             $scope.close = function() {
-                
+
                 $scope.modal.hide();
             };
-            
+
             $scope.choosePlace = function(place) {
-                
+
                 googleAutocompleteService.getDetails(place.place_id).then(function(location) {
-                    
+
                     $scope.location = location;
                     $scope.close();
-                    
+
                     if ($scope.onSelection !== undefined)
                         $scope.onSelection({ location: location });
                 });
             };
-            
+
             $scope.$watch('search.query', function(newValue) {
-                
+
                 if (newValue) {
-                    
+
                     googleAutocompleteService.searchAddress(newValue, $scope.countryCode).then(function(result) {
-                        
+
                         $scope.search.error = null;
                         $scope.search.suggestions = result;
                     }, function(status) {
-                        
+
                         $scope.search.error = "There was an error :( " + status;
                     });
                 }
             });
         }
     }
-})
+}

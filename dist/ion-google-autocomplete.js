@@ -1,5 +1,7 @@
 angular.module('ion-google-autocomplete', [])
-.directive('googleAutocompleteSuggestion', function($document, $ionicModal, $ionicTemplateLoader, googleAutocompleteService) {
+.directive('googleAutocompleteSuggestion', [
+    '$document', '$ionicModal', '$ionicTemplateLoader', 'googleAutocompleteService',
+    function($document, $ionicModal, $ionicTemplateLoader, googleAutocompleteService) {
     return {
         restrict: 'A',
         scope: {
@@ -90,9 +92,9 @@ angular.module('ion-google-autocomplete', [])
             });
         }
     }
-})
+}])
 angular.module('ion-google-autocomplete')
-.factory('googleAutocompleteService', function ($q) {
+.factory('googleAutocompleteService', ['$q', function ($q) {
 
   var autocompleteService = new google.maps.places.AutocompleteService();
   var detailsService = new google.maps.places.PlacesService(document.createElement("input"));
@@ -139,4 +141,4 @@ angular.module('ion-google-autocomplete')
       return dfd.promise;
     }
   };
-})
+}])

@@ -1,5 +1,7 @@
 angular.module('ion-google-autocomplete', [])
-.directive('googleAutocompleteSuggestion', function($document, $ionicModal, $ionicTemplateLoader, googleAutocompleteService) {
+.directive('googleAutocompleteSuggestion', [
+    '$document', '$ionicModal', '$ionicTemplateLoader', 'googleAutocompleteService',
+    function($document, $ionicModal, $ionicTemplateLoader, googleAutocompleteService) {
     return {
         restrict: 'A',
         scope: {
@@ -90,4 +92,4 @@ angular.module('ion-google-autocomplete', [])
             });
         }
     }
-})
+}])

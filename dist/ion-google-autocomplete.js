@@ -1,3 +1,4 @@
+
 angular.module('ion-google-autocomplete', [])
 .directive('googleAutocompleteSuggestion', googleAutocompleteSuggestion)
 .factory('googleAutocompleteService', googleAutocompleteService);
@@ -44,8 +45,6 @@ function googleAutocompleteSuggestion($document, $ionicModal, $ionicTemplateLoad
                 '</ion-modal-view>'
             ].join('')
 
-            console.log("In directive modal.")
-
             $scope.modal = $ionicModal.fromTemplate(template, {
                 scope: $scope,
                 animation: 'slide-in-up'
@@ -54,7 +53,7 @@ function googleAutocompleteSuggestion($document, $ionicModal, $ionicTemplateLoad
             var searchInputElement = angular.element($scope.modal.$el.find('input'));
 
             element[0].addEventListener('focus', function(event) {
-                console.log("Tapped input.")
+
                 $scope.search.query = '';
                 $scope.open();
             });

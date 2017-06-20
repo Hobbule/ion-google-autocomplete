@@ -1,7 +1,12 @@
+
 angular.module('ion-google-autocomplete', [])
-.directive('googleAutocompleteSuggestion', [
-    '$document', '$ionicModal', '$ionicTemplateLoader', 'googleAutocompleteService',
-    function($document, $ionicModal, $ionicTemplateLoader, googleAutocompleteService) {
+.directive('googleAutocompleteSuggestion', googleAutocompleteSuggestion)
+.factory('googleAutocompleteService', googleAutocompleteService);
+
+googleAutocompleteSuggestion.$inject = ['$document', '$ionicModal', '$ionicTemplateLoader', 'googleAutocompleteService'];
+googleAutocompleteService.$inject = ['$q'];
+
+function googleAutocompleteSuggestion($document, $ionicModal, $ionicTemplateLoader, googleAutocompleteService) {
     return {
         restrict: 'A',
         scope: {
@@ -10,7 +15,7 @@ angular.module('ion-google-autocomplete', [])
             onSelection: '&'//Optional
         },
         link: function($scope, element) {
-        
+
             $scope.search = {};
             $scope.search.suggestions = [];
             $scope.search.query = '';
@@ -38,7 +43,7 @@ angular.module('ion-google-autocomplete', [])
                 '</div>',
                 '</ion-content>',
                 '</ion-modal-view>'
-            ].join('')            
+            ].join('')
 
             $scope.modal = $ionicModal.fromTemplate(template, {
                 scope: $scope,
@@ -46,50 +51,99 @@ angular.module('ion-google-autocomplete', [])
             })
 
             var searchInputElement = angular.element($scope.modal.$el.find('input'));
-            
+
             element[0].addEventListener('focus', function(event) {
-                
+
                 $scope.search.query = '';
                 $scope.open();
             });
-                
+
             $scope.open = function() {
-                
+
                 $scope.modal.show();
                 searchInputElement[0].focus();
             };
-            
+
             $scope.close = function() {
-                
+
                 $scope.modal.hide();
             };
-            
+
             $scope.choosePlace = function(place) {
-                
+
                 googleAutocompleteService.getDetails(place.place_id).then(function(location) {
-                    
+
                     $scope.location = location;
                     $scope.close();
-                    
+
                     if ($scope.onSelection !== undefined)
                         $scope.onSelection({ location: location });
                 });
             };
-            
+
             $scope.$watch('search.query', function(newValue) {
-                
+
                 if (newValue) {
-                    
+
                     googleAutocompleteService.searchAddress(newValue, $scope.countryCode).then(function(result) {
-                        
+
                         $scope.search.error = null;
                         $scope.search.suggestions = result;
                     }, function(status) {
-                        
+
                         $scope.search.error = "There was an error :( " + status;
                     });
                 }
             });
         }
     }
-}])
+}
+
+function googleAutocompleteService($q) {
+
+  var autocompleteService = new google.maps.places.AutocompleteService();
+  var detailsService = new google.maps.places.PlacesService(document.createElement("input"));
+
+  return {
+    /**
+     * Search an address from an input and and option country restriction
+     * @param required input string
+     * @param optional countryCode two letters code
+     */
+    searchAddress: function(input, countryCode) {
+
+      var dfd = $q.defer();
+
+      autocompleteService.getPlacePredictions({
+        input: input,
+        componentRestrictions: countryCode ? { country: countryCode } : undefined
+      }, function(result, status) {
+
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+
+          console.log(status);
+          dfd.resolve(result);
+        }
+        else
+          dfd.reject(status);
+      });
+
+      return dfd.promise;
+    },
+    /**
+     * Gets the details of a placeId
+     * @param required placeId
+     */
+    getDetails: function(placeId) {
+
+      var dfd = $q.defer();
+
+      detailsService.getDetails({ placeId: placeId }, function(result) {
+
+        dfd.resolve(result);
+      });
+
+      return dfd.promise;
+    }
+  };
+}

@@ -11,6 +11,10 @@
             <ion-item ng-show="search.error">
             {{search.error}}
             </ion-item>
+            <ion-item ng-if="currentLocation" ng-click="getCurrentLocation()">
+                <ion-spinner ng-if="isLoading"></ion-spinner>
+                <span ng-if="!isLoading">Current Location</span>
+            </ion-item>
             <ion-item ng-repeat="suggestion in search.suggestions" ng-click="choosePlace(suggestion)">
             {{suggestion.description}}
             </ion-item>

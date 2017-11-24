@@ -10,6 +10,11 @@ This is a simple directive for Ionic 1 that allows you to add an input text elem
 
 See the codepen here: https://codepen.io/SNOWMANxD/pen/wPXrpr
 
+Requires
+```
+ionic cordova plugin add cordova-plugin-geolocation
+```
+
 # Usage
 1. Include the library and Google Places in your index.html (remember to replace your_api_key by your Google API Key:
     ```html

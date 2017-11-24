@@ -8,11 +8,7 @@ This is a simple directive for Ionic 1 that allows you to add an input text elem
 # Demo
 <img src="https://s3.amazonaws.com/ionic-marketplace/ion-google-autocomplete/screenshot_4.gif" />
 
-See the codepen here: http://codepen.io/sebrojas14/pen/QERQyj
-
-# Installation
-You can use bower:
-`bower i ion-google-autocomplete`
+See the codepen here: https://codepen.io/SNOWMANxD/pen/wPXrpr
 
 # Usage
 1. Include the library and Google Places in your index.html (remember to replace your_api_key by your Google API Key:

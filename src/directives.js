@@ -1,12 +1,14 @@
 angular.module('ion-google-autocomplete', [])
 .directive('googleAutocompleteSuggestion', [
-    '$document', '$ionicModal', '$ionicTemplateLoader', 'googleAutocompleteService',
-    function($document, $ionicModal, $ionicTemplateLoader, googleAutocompleteService) {
+    '$document', '$ionicModal', '$ionicTemplateLoader', 'googleAutocompleteService', '$cordovaGeolocation',
+    function($document, $ionicModal, $ionicTemplateLoader, googleAutocompleteService, $cordovaGeolocation) {
     return {
         restrict: 'A',
         scope: {
             location: '=',//Required
             countryCode: '@',//Optional
+            placeType: '@',//Optional
+            currentLocation: '=',//Optional
             onSelection: '&'//Optional
         },
         link: function($scope, element) {
@@ -28,6 +30,10 @@ angular.module('ion-google-autocomplete', [])
                 '<ion-list>',
                 '<ion-item ng-show="search.error">',
                 '{{search.error}}',
+                '</ion-item>',
+                '<ion-item ng-if="currentLocation" ng-click="getCurrentLocation()">',
+                '<ion-spinner ng-if="isLoading"></ion-spinner>',
+                '<span ng-if="!isLoading">Current Location</span>',
                 '</ion-item>',
                 '<ion-item ng-repeat="suggestion in search.suggestions" ng-click="choosePlace(suggestion)">',
                 '{{suggestion.description}}',
@@ -75,17 +81,43 @@ angular.module('ion-google-autocomplete', [])
                         $scope.onSelection({ location: location });
                 });
             };
+
+            $scope.getCurrentLocation = function() {
+                $scope.isLoading = true;
+
+                var options = {timeout: 10000, enableHighAccuracy: false};
+                $cordovaGeolocation.getCurrentPosition(options).then(function(position) {
+                    var lat  = position.coords.latitude;
+                    var lon = position.coords.longitude;
+                    
+                    googleAutocompleteService.reverseGeocode(lat, lon)
+                    .then(function(location) {
+                        console.log(location[0]);
+                        $scope.isLoading = false;
+                        $scope.location = location[0];
+                        $scope.close();
+                        if ($scope.onSelection !== undefined)
+                            $scope.onSelection({ location: location[0] });
+                    }, function(err) {
+                        $scope.isLoading = false;
+                        console.log(err);
+                    });
+                }, function(err) {
+                    $scope.isLoading = false;
+                    $scope.currentLocation = false;
+                    console.log(err);
+                });
+
+            }
             
             $scope.$watch('search.query', function(newValue) {
                 
                 if (newValue) {
                     
-                    googleAutocompleteService.searchAddress(newValue, $scope.countryCode).then(function(result) {
-                        
+                    googleAutocompleteService.searchAddress(newValue, $scope.countryCode, $scope.placeType).then(function(result) {
                         $scope.search.error = null;
                         $scope.search.suggestions = result;
-                    }, function(status) {
-                        
+                    }, function(status) {                        
                         $scope.search.error = "There was an error :( " + status;
                     });
                 }

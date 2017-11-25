@@ -8,17 +8,18 @@ This is a simple directive for Ionic 1 that allows you to add an input text elem
 # Demo
 <img src="https://s3.amazonaws.com/ionic-marketplace/ion-google-autocomplete/screenshot_4.gif" />
 
-See the codepen here: http://codepen.io/sebrojas14/pen/QERQyj
+See the codepen here: https://codepen.io/SNOWMANxD/pen/wPXrpr
 
-# Installation
-You can use bower:
-`bower i ion-google-autocomplete`
+Requires
+```
+ionic cordova plugin add cordova-plugin-geolocation
+```
 
 # Usage
 1. Include the library and Google Places in your index.html (remember to replace your_api_key by your Google API Key:
     ```html
     <script src="lib/ion-google-autocomplete/dist/ion-google-autocomplete.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?key=your_api_key&libraries=places"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=your_api_key&libraries=places,geocoder"></script>
 ```
 2. Add the `ion-google-autocomplete` module to your app module dependencies
 3. In your controller initialize data and options
@@ -29,6 +30,9 @@ You can use bower:
     $scope.countryCode = 'US';
     
     //Optional
+    $scope.placeType = "(cities)"
+    
+    //Optional
     $scope.onAddressSelection = function (location) {
     
         //Do something
@@ -37,7 +41,7 @@ You can use bower:
     ```
 4. Add the google-autocomplete-suggestion attribute to your text input field
     ```html
-    <input type="text" placeholder="Change address" google-autocomplete-suggestion location="data.location" country-code="{{countryCode}}" on-selection="onAddressSelection(location)" ng-model="data.location.formatted_address" readonly required>
+    <input type="text" placeholder="Change address" google-autocomplete-suggestion location="data.location" place-type="{{placeType}}" current-location="true" country-code="{{countryCode}}" on-selection="onAddressSelection(location)" ng-model="data.location.formatted_address" readonly required>
     ```
 
 ## Configurable options
@@ -60,9 +64,21 @@ $scope.onAddressSelection = function (location) {
     //Do something
     var a = location.address_components;
 };
+
+### The `place-type` (NEW)
+Optional
+Place Types, see https://developers.google.com/places/web-service/autocomplete#place_types
+"You may restrict results from a Place Autocomplete request to be of a certain type by passing a types parameter. The parameter specifies a type or a type collection, as listed in the supported types below. If nothing is specified, all types are returned. In general only a single type is allowed. The exception is that you can safely mix the geocode and establishment types, but note that this will have the same effect as specifying no types."
+
+### The `current-location` (NEW)
+Optional
+Allows the capability of location the user through $cordovaGeolocation. The result of the currentPosition() will be reverse geocoded and returns a similar location object as the AutocompleteService does.
 ```
 
 ## Release Notes
 
 v1.0.0
 - Now is using Ionic Modal service and can be used inside another Ionic Modal
+
+v1.0.1
+- Added placeType and currentLocation capability.
